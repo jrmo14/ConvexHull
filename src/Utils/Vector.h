@@ -6,9 +6,9 @@
 #define VECTOR_INIT_CAPACITY 4
 
 #define VECTOR_INIT(vec) vector vec; vector_init(&vec)
-#define VECTOR_ADD(vec, item) vector_add(&vec, (void *) item)
-#define VECTOR_SET(vec, idx, item) vector_set(&vec, idx, (void *) item)
-#define VECTOR_INSERT(vec, idx, item) vector_insert(&vec, idx, (void *) item)
+#define VECTOR_ADD(vec, item) vector_add(&vec, item)
+#define VECTOR_SET(vec, idx, item) vector_set(&vec, idx, item)
+#define VECTOR_INSERT(vec, idx, item) vector_insert(&vec, idx, item)
 #define VECTOR_GET(vec, type, idx) (type) vector_get(&vec, idxx)
 #define VECTOR_DELETE(vec, idx) vector_delete(&vec, idx)
 #define VECTOR_TOTAL(vec) vector_total(&vec)

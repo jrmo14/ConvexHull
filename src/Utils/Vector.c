@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "Vector.h"
 
 void vector_init(vector *vec) {
@@ -41,10 +40,11 @@ void vector_insert(vector *vec, int idx, point *item) {
         return;
     if (vec->size == vec->cap)
         vector_resize(vec, vec->cap * 2);
-    for (int i = vec->size; i > idx; i--) {
+    for (int i = vec->size; i >= idx; i--) {
         vec->items[i + 1] = vec->items[i];
     }
     vec->items[idx] = *item;
+    vec->size++;
 }
 
 point *vector_get(vector *vec, int idx) {
@@ -54,7 +54,7 @@ point *vector_get(vector *vec, int idx) {
 }
 
 void vector_delete(vector *vec, int idx) {
-    if (idx < 0 || idx >= vec->size)
+    if (idx < 0 || idx > vec->size)
         return;
     for (int i = idx; i < vec->size - 1; i++) {
         vec->items[i] = vec->items[i + 1];
