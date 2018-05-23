@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.10)
+project(ConvexHull C)
+
+set(CMAKE_C_STANDARD 11)
+
+set(EXECUTABLE_OUTPUT_PATH bin)
+set(LIBRARY_OUTPUT_PATH obj)
+
+add_library(Utils src/Utils/Utils.c src/Utils/Vector.c src/Utils/Point.c)
+
+add_executable(PointSort src/point-sort.c)
+add_executable(ConvHull src/conv-hull.c)
+add_executable(VECTest src/vectorTest.c)
+
+target_link_libraries(PointSort Utils)
+target_link_libraries(ConvHull Utils)
+target_link_libraries(VECTest Utils)
