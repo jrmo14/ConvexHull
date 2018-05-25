@@ -10,6 +10,7 @@ int access_vector(vector *vec, int idx, int offset) {
     return int_val;
 }
 
+// TODO fix quicksort and implement
 vector *conv_hull(vector *points) {
     vector x_sorted;
     vector_copy(points, &x_sorted);
