@@ -7,18 +7,16 @@
 #include <string.h>
 #include <stdbool.h>
 #include "Point.h"
+#include "Vector.h"
+
 
 // TODO use a function pointer to access the data
 // TODO pass a void * instead a of point *
 // TODO access function must take a void *, an index, and an offset
 // Stuff for quicksort
-//void quicksort(void *arr, int low, int high, int offset, int  (*access)(void *, int, int));
+void quicksort(vector *arr, int low, int high, int offset, int (*num_access)(vector *, int, int));
 
-void quicksort(point *arr, int low, int high, int offset);
-
-//int partition(void *arr, int low, int high, int offset, int (*access)(void *, int, int));
-
-int partition(point *arr, int low, int high, int offset);
+int partition(vector *arr, int low, int high, int offset, int (*num_access)(vector *, int, int));
 
 void swap(point *a, point *b);
 

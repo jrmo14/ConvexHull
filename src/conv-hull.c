@@ -1,7 +1,23 @@
-#include "Utils/Utils.h"
-#include "Utils/LinkedList.h"
+#include "utils/Utils.h"
+#include "utils/Vector.h"
 
-node *conv_hull(point *arr, int len);
+int access_vector(vector *vec, int idx, int offset) {
+
+    if (idx < 0 || idx > vec->size)
+        return -1000;
+    point *point_val = &vec->items[idx];
+    int int_val = *((int *) (point_val) + offset);
+    return int_val;
+}
+
+vector *conv_hull(vector *points) {
+    vector x_sorted;
+    vector_copy(points, &x_sorted);
+    int (*access_ptr)(vector *, int, int) = &access_vector;
+    quicksort(&x_sorted, 0, x_sorted.size, 1, access_ptr);
+    print_arr(x_sorted.items, x_sorted.size);
+
+}
 
 int main(int argc, char *argv[]) {
     int num_points;
@@ -11,28 +27,20 @@ int main(int argc, char *argv[]) {
         printf("Usage: %s <number of points>\n", argv[0]);
         exit(0);
     }
-    seed_rng();
+    //seed_rng();
     set_x_bound(50);
     set_y_bound(50);
-    point points[num_points];
+    VECTOR_INIT(points);
+    point tmp;
     for (int i = 0; i < num_points; i++) {
-        points[i] = generate_point();
+        tmp = generate_point();
+        VECTOR_ADD(points, &tmp);
     }
-    write_points("../../foo.pts", points, num_points);
-    print_arr(points, num_points);
+    write_points("../../foo.pts", points.items, points.size);
     printf("\n");
+    printf("Testing access\nShould print 4th y value: %d\n", access_vector((void *) &points, 3, 1));
+    print_arr(points.items, points.size);
+    printf("\n\n");
 
-
-}
-
-node *conv_hull(point *arr, int len){
-    // Remember to free the point arrays before returning
-    point *x_points = malloc(sizeof(point) * len);
-    point *y_points = malloc(sizeof(point) * len);
-    copy_arr(arr, x_points, len);
-    copy_arr(arr, y_points, len);
-    quicksort(x_points, 0, len, 0);
-    quicksort(y_points, 0, len, 1);
-
-
+    conv_hull(&points);
 }

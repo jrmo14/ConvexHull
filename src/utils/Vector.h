@@ -37,4 +37,6 @@ void vector_delete(vector *, int);
 
 void vector_free(vector *);
 
+void vector_copy(vector *, vector *);
+
 #endif

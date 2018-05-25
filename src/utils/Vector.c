@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory.h>
 #include "Vector.h"
 
 void vector_init(vector *vec) {
@@ -66,4 +67,15 @@ void vector_delete(vector *vec, int idx) {
 
 void vector_free(vector *vec) {
     free(vec->items);
+}
+
+void vector_copy(vector *src, vector *dst) {
+    point *tmp_items = malloc(sizeof(point) * src->cap);
+    for(int i = 0; i<src->cap; i++){
+        tmp_items[i] = src->items[i];
+    }
+    vector_init(dst);
+    dst->items = tmp_items;
+    dst->cap = src->cap;
+    dst->size = src->size;
 }
