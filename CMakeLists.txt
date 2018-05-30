@@ -5,8 +5,9 @@ set(CMAKE_C_STANDARD 11)
 
 set(EXECUTABLE_OUTPUT_PATH bin)
 set(LIBRARY_OUTPUT_PATH obj)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_library(Utils src/Utils/Utils.c src/Utils/Vector.c src/Utils/Point.c)
+add_library(Utils src/utils/Utils.c src/utils/Vector.c src/utils/Point.c)
 
 add_executable(ConvHull src/conv-hull.c)
 add_executable(VECTest src/vectorTest.c)
