@@ -1,48 +1,41 @@
 #include "Utils.h"
 
 // Quicksort, with extra bullshit to handle x and y
-//void quicksort(void *arr, int low, int high, int offset, int (*access)(void *, int, int)) {
-void quicksort(point *arr, int low, int high, int offset) {
+void quicksort(vector *arr, int low, int high, int offset, int (*num_access)(vector *, int, int)) {
     if (low < high) {
-        int pi = partition(arr, low, high, offset);
-        quicksort(arr, low, pi - 1, offset);
-        quicksort(arr, pi + 1, high, offset);
+        int pi = partition(arr, low, high, offset, num_access);
+        quicksort(arr, low, pi - 1, offset, num_access);
+        quicksort(arr, pi + 1, high, offset, num_access);
     }
 }
 
-//int partition(void *arr, int low, int high, int offset, int (*access)(void *, int, int)) {
-int partition(point *arr, int low, int high, int offset) {
+int partition(vector *arr, int low, int high, int offset, int (*num_access)(vector *, int, int)) {
     // Arr is an array of points (x and y) ints
     // Get arr[high] then use the offset to choose between x(0) and y(1)
     // Structs are contiguous in memory (the x and y values are right next to each other)
     // Add the size of one int to the pointer to x to get y
-    int pivot = *((int *) (arr + high) + offset);
+    int pivot = num_access(arr, high, offset);
     int i = low - 1;
     for (int j = low; j <= high - 1; j++) {
         // Get the value of the either the X or the Y of arr[j]
-        if (*((int *) (arr + j) + offset) <= pivot) {
+        if (num_access(arr, j, offset) <= pivot) {
             i++;
-            swap(&arr[i], &arr[j]);
+            swap(&arr->items[i], &arr->items[j]);
         }
     }
-    swap(&arr[i + 1], &arr[high]);
+    swap(&arr->items[i + 1], &arr->items[high]);
     return (i + 1);
 }
 
 
 void swap(point *a, point *b) {
-    if (a->x == b->x && a->y == b->y)
-        return;
-    if (a->x != b->x) {
-        a->x = a->x + b->x;
-        b->x = a->x - b->x;
-        a->x = a->x - b->x;
-    }
-    if (a->y != b->y) {
-        a->y = a->y + b->y;
-        b->y = a->y - b->y;
-        a->y = a->y - b->y;
-    }
+    point tmp;
+    tmp.x = b->x;
+    tmp.y = b->y;
+    b->x = a->x;
+    b->y = a->y;
+    a->x = tmp.x;
+    a->y = tmp.y;
 }
 
 void write_points(char *filename, point *points, int size) {
@@ -73,5 +66,3 @@ void print_arr(point *arr, int len) {
         print_point(arr[i]);
     }
 }
-
-

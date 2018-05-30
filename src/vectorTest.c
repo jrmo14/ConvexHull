@@ -1,9 +1,10 @@
-#include "Utils/Utils.h"
-#include "Utils/Vector.h"
+#include "utils/Utils.h"
+#include "utils/Vector.h"
+
 
 int main() {
     seed_rng();
-    int size = 5;
+    int size = 9;
     VECTOR_INIT(vec);
     point pt;
     printf("Printing generated points\n");
@@ -14,9 +15,17 @@ int main() {
     }
     printf("\nPrinting vector contents\n");
     print_arr(vec.items, vec.size);
-    printf("\nInserting element\n");
+
+    printf("\nTesting insert: inserting ");
     pt = generate_point();
-    VECTOR_INSERT(vec, 0, &pt);
+    print_point(pt);
+    printf(" at index %d \n", 5);
+    VECTOR_INSERT(vec, 5, &pt);
     print_arr(vec.items, vec.size);
+
+    printf("\nTesting delete: deleting at index %d\n", vec.size);
+    VECTOR_DELETE(vec, vec.size);
+    print_arr(vec.items, vec.size);
+
 
 }
